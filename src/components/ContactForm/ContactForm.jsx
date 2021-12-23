@@ -3,38 +3,27 @@ import { nanoid } from "nanoid";
 import PropTypes from "prop-types";
 import styles from "./ContactForm.module.css";
 
-function ContactForm({ formSubmit }) {
-  const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
+const initialState = {
+  name: '',
+  number: '',
+};
+
+const ContactForm = props => {
+  const [data, setData] = useState(initialState);
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    props.onSubmitContact(data);
+    setData(initialState);
+  };
+  const inputChange = ({ target }) => {
+    const { name, value } = target;
+    setData({ ...data, [name]: value });
+  };
 
   const nameId = nanoid();
   const numberId = nanoid();
-
-  const inputChange = (event) => {
-    switch (event.target.name) {
-      case "name":
-        setName(event.target.value);
-        break;
-
-      case "number":
-        setNumber(event.target.value);
-        break;
-      default:
-        return;
-    }
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const contact = { id: nanoid(), name, number };
-    formSubmit(contact);
-    resetForm();
-  };
-
-  const resetForm = () => {
-    setName("");
-    setNumber("");
-  };
+  const { name, number } = data;
 
   return (
     <div className={styles.formWrapper}>
@@ -78,7 +67,7 @@ ContactForm.propTypes = {
   nameId: PropTypes.number,
   numberId: PropTypes.number,
   handleSubmit: PropTypes.func,
-  formSubmit: PropTypes.func.isRequired,
+  formSubmit: PropTypes.func,
   inputChange: PropTypes.func,
 };
 

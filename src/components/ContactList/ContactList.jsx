@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import id from "../contacts.json";
 import styles from "./ContactList.module.css";
 
 const ContactList = ({ getContacts, deleteContact }) => {
@@ -7,7 +8,7 @@ const ContactList = ({ getContacts, deleteContact }) => {
       {getContacts.map(({ name, number, id }) => {
         const onDeleteContact = () => deleteContact(id);
         return (
-          <li className={styles.item} key={id}>
+          <li className={styles.item} key={number.toString()}>
             <p>{name}:</p>
             <p>{number}</p>
             <button

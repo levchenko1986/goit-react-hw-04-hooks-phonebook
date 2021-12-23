@@ -45,7 +45,7 @@ function App() {
     <Container>
       <div className={styles.app}>
         <h1 className={styles.title}>Phonebook</h1>
-        <ContactForm formSubmit={formSubmit} />
+        <ContactForm onSubmitContact={formSubmit} />
         <h2 className={styles.title}>Contacts</h2>
         <Filter filter={filter} onFilterChange={filterChange} />
         <ContactList getContacts={getContacts} deleteContact={deleteContact} />
